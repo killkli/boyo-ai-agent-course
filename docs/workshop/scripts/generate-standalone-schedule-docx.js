@@ -100,7 +100,7 @@ const doc = new Document({
       new Paragraph({ spacing: { before: 800, after: 180 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'Hermes Agent', bold: true, color: blue, size: 30, font: 'Arial' })] }),
       new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun({ text: '全天實作工作坊 — 獨立課表', font: 'Arial' })] }),
       new Paragraph({ spacing: { after: 220 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: '6 小時教學時間｜Hands-on 實作｜分組操作與成果展示', color: teal, size: 22, font: 'Arial' })] }),
-      infoBox('工作坊特色', ['上午建立 Hermes 操作與工具能力，下午進入真實辦公室場景實戰', '從安裝、工作流設計、原型迭代到成果展示，一天完成完整體驗', '適合作為企業內訓、工作坊提案或學員版課表附件']),
+      infoBox('工作坊特色', ['上午建立 Hermes 操作與工具能力，下午進入博幼基金會場景實戰', '從安裝、工作流設計、原型迭代到成果展示，一天完成完整體驗', '適合作為企業內訓、工作坊提案或學員版課表附件']),
       infoBox('基本資訊', ['適合對象：已具備基礎 AI Agent 概念的在職人士', '建議人數：16–24 人，4 組進行', '設備需求：筆電、終端機、網路與 API Key']),
       new Paragraph({ children: [new PageBreak()] }),
       p('工作坊概覽', { heading: HeadingLevel.HEADING_1 }),
@@ -116,9 +116,9 @@ const doc = new Document({
       ]),
       p('', { children: [new TextRun({ text: '上午場小計：教學 170 分鐘', bold: true, color: amber, size: 22, font: 'Arial' })] }),
       makeScheduleTable([
-        ['13:10–14:10', '60 分鐘', 'Lab 4：辦公室場景實作（一）— 從需求到原型', 'Hands-on', '完成第一版可運作原型'],
+        ['13:10–14:10', '60 分鐘', 'Lab 4：博幼基金會場景實作（一）— 從需求到原型', 'Hands-on', '完成第一版可運作原型'],
         ['14:10–14:20', '10 分鐘', '休息', '—', '—'],
-        ['14:20–15:10', '50 分鐘', 'Lab 5：辦公室場景實作（二）— 迭代與優化', 'Hands-on', '完成進階功能與邊界處理'],
+        ['14:20–15:10', '50 分鐘', 'Lab 5：博幼基金會場景實作（二）— 迭代與優化', 'Hands-on', '完成進階功能與邊界處理'],
         ['15:10–15:20', '10 分鐘', '休息', '—', '—'],
         ['15:20–16:00', '40 分鐘', 'Lab 6：分組挑戰賽 — 跨場景整合', 'Hands-on', '完成整合構想或原型'],
         ['16:00–16:10', '10 分鐘', '休息', '—', '—'],
@@ -129,7 +129,7 @@ const doc = new Document({
       bullet('完成 Hermes Agent 安裝與基本設定'),
       bullet('執行第一個實作任務，理解 Agent 的基本操作節奏'),
       bullet('啟用搜尋、檔案與排程工具，建立一個可重複執行的工作流'),
-      bullet('在真實辦公室場景中完成一版 Agent 原型並進行優化'),
+      bullet('在博幼基金會場景中完成一版 Agent 原型並進行優化'),
       bullet('完成分組展示與跨場景整合挑戰'),
       p('下午場四個場景', { heading: HeadingLevel.HEADING_1 }),
       new Table({
@@ -138,10 +138,10 @@ const doc = new Document({
         rows: [
           new TableRow({ children: ['場景', '主題', '核心練習'].map((h, i) => new TableCell({ borders: cellBorders, width: { size: [900, 2600, 5860][i], type: WidthType.DXA }, shading: { fill: teal, type: ShadingType.CLEAR }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: h, bold: true, color: 'FFFFFF', size: 21, font: 'Arial' })] })] })) }),
           ...[
-            ['A', '每日報表彙整', '摘要、整併、異常標記'],
-            ['B', '會議記錄整理與待辦追蹤', '結構化整理、待辦萃取'],
-            ['C', '客戶來信分類與回覆建議', '分類、優先級、回覆重點'],
-            ['D', '專案進度監控與異常提醒', '比對分析、風險標記'],
+            ['A', '課輔中心週報彙整', '摘要、整併、異常標記'],
+            ['B', '教學會議記錄整理與待辦追蹤', '結構化整理、待辦萃取'],
+            ['C', '學童家長來信分類與回覆建議', '分類、優先級、回覆重點'],
+            ['D', '課輔計畫進度監控與異常提醒', '比對分析、風險標記'],
           ].map((r) => new TableRow({ children: r.map((c, i) => new TableCell({ borders: cellBorders, width: { size: [900, 2600, 5860][i], type: WidthType.DXA }, children: [new Paragraph({ alignment: i === 0 ? AlignmentType.CENTER : AlignmentType.LEFT, children: [new TextRun({ text: c, size: 20, font: 'Arial' })] })] })) }))
         ]
       }),
