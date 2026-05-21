@@ -1,0 +1,101 @@
+---
+export interface Props {
+  contentId: string;
+}
+
+const { contentId } = Astro.props;
+---
+
+<div id={`note-${contentId}`} class="bg-cream-100/60 rounded-xl border border-boyo-100 overflow-hidden">
+  <button class="note-toggle w-full flex items-center justify-between px-5 py-3 text-left hover:bg-cream-200/40 transition-colors">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 text-boyo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+      <span class="font-serif font-semibold text-boyo-700 text-sm">我的筆記</span>
+    </div>
+    <svg class="note-chevron w-4 h-4 text-bark-700/40 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div class="note-body hidden px-5 pb-4">
+    <textarea
+      class="note-textarea w-full h-40 p-3 bg-white rounded-lg border border-boyo-100 text-sm text-bark-900 placeholder-bark-700/30 focus:outline-none focus:ring-2 focus:ring-boyo-300 focus:border-boyo-300 resize-y font-sans leading-relaxed"
+      placeholder="在這裡記錄你的學習心得、問題或重點..."
+    ></textarea>
+    <div class="flex items-center justify-between mt-2">
+      <span class="note-status text-xs text-bark-700/40"></span>
+      <span class="note-time text-xs text-bark-700/40"></span>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ contentId }}>
+  const container = document.getElementById(`note-${contentId}`);
+  if (container) {
+    const toggle = container.querySelector('.note-toggle');
+    const body = container.querySelector('.note-body');
+    const chevron = container.querySelector('.note-chevron');
+    const textarea = container.querySelector('.note-textarea');
+    const status = container.querySelector('.note-status');
+    const time = container.querySelector('.note-time');
+
+    let saveTimer;
+
+    async function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open('boyo-agent-tutor', 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('notes')) db.createObjectStore('notes', { keyPath: 'id' });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function loadNote() {
+      const db = await openDB();
+      return new Promise((resolve) => {
+        const r = db.transaction('notes', 'readonly').objectStore('notes').get(contentId);
+        r.onsuccess = () => resolve(r.result);
+      });
+    }
+
+    async function saveNote(content) {
+      const db = await openDB();
+      const now = new Date().toISOString();
+      return new Promise((resolve) => {
+        db.transaction('notes', 'readwrite').objectStore('notes').put({
+          id: contentId, content, updatedAt: now,
+        }).onsuccess = () => resolve(now);
+      });
+    }
+
+    function formatTime(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return `儲存於 ${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('hidden');
+      chevron.classList.toggle('rotate-180');
+    });
+
+    textarea.addEventListener('input', () => {
+      status.textContent = '輸入中...';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(async () => {
+        const t = await saveNote(textarea.value);
+        status.textContent = '已儲存';
+        time.textContent = formatTime(t);
+        setTimeout(() => { status.textContent = ''; }, 2000);
+      }, 800);
+    });
+
+    loadNote().then(note => {
+      if (note?.content) {
+        textarea.value = note.content;
+        time.textContent = formatTime(note.updatedAt);
+      }
+    });
+  }
+</script>

@@ -1,0 +1,84 @@
+---
+export interface Props {
+  contentId: string;
+}
+
+const { contentId } = Astro.props;
+---
+
+<div id={`progress-${contentId}`} class="bg-boyo-50/80 rounded-xl p-5 border border-boyo-100">
+  <h4 class="font-serif font-semibold text-boyo-700 text-base mb-4">學習進度</h4>
+  <div class="flex flex-wrap gap-2">
+    <button data-status="none" class="progress-btn px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all border-gray-200 text-gray-400 hover:border-gray-300">
+      尚未開始
+    </button>
+    <button data-status="in-progress" class="progress-btn px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all border-accent-300 text-accent-400 bg-accent-50 hover:border-accent-400">
+      學習中
+    </button>
+    <button data-status="done" class="progress-btn px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all border-boyo-300 text-boyo-500 bg-boyo-50 hover:border-boyo-500">
+      已完成
+    </button>
+  </div>
+</div>
+
+<script define:vars={{ contentId }}>
+  const container = document.getElementById(`progress-${contentId}`);
+  if (container) {
+    const db = Promise.resolve();
+    const STATUS_LABELS = { none: '尚未開始', 'in-progress': '學習中', done: '已完成' };
+    const STATUS_STYLES = {
+      none: { active: 'border-gray-400 text-gray-600 bg-gray-50 ring-2 ring-gray-200', base: 'border-gray-200 text-gray-400' },
+      'in-progress': { active: 'border-accent-400 text-accent-500 bg-accent-50 ring-2 ring-accent-200', base: 'border-accent-300 text-accent-400' },
+      done: { active: 'border-boyo-500 text-white bg-boyo-500 ring-2 ring-boyo-300', base: 'border-boyo-300 text-boyo-500' },
+    };
+
+    async function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open('boyo-agent-tutor', 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('notes')) db.createObjectStore('notes', { keyPath: 'id' });
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function loadProgress() {
+      const db = await openDB();
+      return new Promise((resolve) => {
+        const r = db.transaction('progress', 'readonly').objectStore('progress').get(contentId);
+        r.onsuccess = () => resolve(r.result?.status || 'none');
+      });
+    }
+
+    async function saveProgress(status) {
+      const db = await openDB();
+      return new Promise((resolve) => {
+        db.transaction('progress', 'readwrite').objectStore('progress').put({
+          id: contentId, status, updatedAt: new Date().toISOString(),
+        }).onsuccess = () => resolve();
+      });
+    }
+
+    function updateUI(current) {
+      container.querySelectorAll('.progress-btn').forEach(btn => {
+        const s = btn.dataset.status;
+        const styles = STATUS_STYLES[s];
+        btn.className = 'progress-btn px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all ' +
+          (s === current ? styles.active : styles.base);
+      });
+    }
+
+    container.querySelectorAll('.progress-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const status = btn.dataset.status;
+        await saveProgress(status);
+        updateUI(status);
+      });
+    });
+
+    loadProgress().then(updateUI);
+  }
+</script>

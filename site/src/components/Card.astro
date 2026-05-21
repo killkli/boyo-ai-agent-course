@@ -1,0 +1,42 @@
+---
+export interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  order?: number;
+  tag?: string;
+  tagColor?: string;
+}
+
+const { href, title, description, order, tag, tagColor = 'boyo' } = Astro.props;
+---
+
+<a href={href} class="group block bg-white rounded-xl border border-boyo-100 p-5 hover:border-boyo-300 hover:shadow-lg hover:shadow-boyo-100/50 transition-all duration-200">
+  <div class="flex items-start gap-4">
+    {order != null && (
+      <div class="w-10 h-10 rounded-lg bg-boyo-500 text-white flex items-center justify-center font-serif font-bold text-lg flex-shrink-0 shadow-sm group-hover:bg-boyo-600 transition-colors">
+        {order}
+      </div>
+    )}
+    <div class="flex-1 min-w-0">
+      {tag && (
+        <span class={`inline-block text-xs font-medium px-2 py-0.5 rounded-full mb-2 ${
+          tagColor === 'accent' ? 'bg-accent-100 text-accent-500' :
+          tagColor === 'boyo' ? 'bg-boyo-100 text-boyo-600' :
+          'bg-gray-100 text-gray-600'
+        }`}>
+          {tag}
+        </span>
+      )}
+      <h3 class="font-serif font-semibold text-boyo-800 group-hover:text-boyo-600 transition-colors line-clamp-2">
+        {title}
+      </h3>
+      {description && (
+        <p class="mt-1.5 text-sm text-bark-700/70 line-clamp-2 leading-relaxed">{description}</p>
+      )}
+    </div>
+    <svg class="w-5 h-5 text-bark-700/20 group-hover:text-boyo-500 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</a>

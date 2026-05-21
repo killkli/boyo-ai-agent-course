@@ -1,0 +1,102 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實作課程學員平台' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <title>{title} | 博幼 AI Agent 課程</title>
+  </head>
+  <body class="bg-cream-50 text-bark-900 font-sans antialiased min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-cream-50/90 backdrop-blur-sm border-b border-boyo-100 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="flex items-center gap-2.5 group">
+            <div class="w-9 h-9 rounded-lg bg-boyo-500 flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm group-hover:bg-boyo-600 transition-colors">
+              AI
+            </div>
+            <div class="hidden sm:block">
+              <span class="font-serif font-semibold text-boyo-700 text-base leading-tight block">博幼 AI Agent 課程</span>
+              <span class="text-xs text-bark-700/60 leading-tight">知識帶希望回家</span>
+            </div>
+          </a>
+          <nav class="hidden md:flex items-center gap-1">
+            <a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">首頁</a>
+            <a href="/lessons/01-ai-landscape" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">六堂課</a>
+            <a href="/workshop" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">工作坊</a>
+            <a href="/resources/prerequisites" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習資源</a>
+            <a href="/progress" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習進度</a>
+          </nav>
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-boyo-50 text-bark-700" aria-label="開啟選單">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden border-t border-boyo-100 bg-cream-50">
+        <div class="px-4 py-3 space-y-1">
+          <a href="/" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">首頁</a>
+          <a href="/lessons/01-ai-landscape" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">六堂課</a>
+          <a href="/workshop" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">工作坊</a>
+          <a href="/resources/prerequisites" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習資源</a>
+          <a href="/progress" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習進度</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-boyo-800 text-boyo-100 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-serif font-semibold text-white text-lg mb-3">博幼 AI Agent 課程</h3>
+            <p class="text-sm text-boyo-200 leading-relaxed">
+              為博幼基金會課輔老師與社工設計的 AI Agent 實作培訓課程。讓 AI 成為日常工作的好幫手。
+            </p>
+          </div>
+          <div>
+            <h4 class="font-medium text-white mb-3">課程內容</h4>
+            <ul class="space-y-2 text-sm text-boyo-200">
+              <li><a href="/lessons/01-ai-landscape" class="hover:text-white transition-colors">AI 生態系概覽</a></li>
+              <li><a href="/workshop" class="hover:text-white transition-colors">全天工作坊</a></li>
+              <li><a href="/resources/prerequisites" class="hover:text-white transition-colors">課前準備</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium text-white mb-3">關於博幼基金會</h4>
+            <p class="text-sm text-boyo-200 leading-relaxed">
+              「教育脫貧，讓知識帶希望回家」<br />
+              免費提供弱勢偏鄉學童教育課程與服務
+            </p>
+          </div>
+        </div>
+        <div class="border-t border-boyo-700 mt-8 pt-6 text-center text-sm text-boyo-300">
+          博幼基金會 AI Agent 實作課程 &copy; 2026
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>
