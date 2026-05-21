@@ -16,6 +16,14 @@
 - [guides/instructor-guide.md](./guides/instructor-guide.md) — 講師備課、巡場、時間控管與 Demo 建議
 - [scripts/generate-standalone-schedule-docx.js](./scripts/generate-standalone-schedule-docx.js) — 獨立課表 DOCX 生成腳本
 
+## Handouts
+
+- [handouts/student-schedule.md](./handouts/student-schedule.md) — 學員當天可直接使用的課表與筆記頁
+- [handouts/prep-checklist.md](./handouts/prep-checklist.md) — 工作坊版課前準備清單
+- [handouts/hermes-quick-ref.md](./handouts/hermes-quick-ref.md) — 當天最常用的 Hermes 指令卡
+- [handouts/workshop-scenarios.md](./handouts/workshop-scenarios.md) — 下午場景挑戰卡與 Demo 重點
+- [handouts/feedback-form.md](./handouts/feedback-form.md) — 工作坊專用回饋表
+
 ## 六個 Lab
 
 - [labs/lab-01-hermes-setup-and-basics.md](./labs/lab-01-hermes-setup-and-basics.md) — 安裝 Hermes 並完成第一個任務
