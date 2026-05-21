@@ -5,6 +5,7 @@ export interface Props {
 }
 
 const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實作課程學員平台' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
@@ -129,7 +130,7 @@ const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實�
     <header class="sticky top-0 z-50 bg-cream-50/90 backdrop-blur-sm border-b border-boyo-100 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <a href="/" class="flex items-center gap-2.5 group">
+          <a href={`${base}/`} class="flex items-center gap-2.5 group">
             <div class="w-9 h-9 rounded-lg bg-boyo-500 flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm group-hover:bg-boyo-600 transition-colors">
               AI
             </div>
@@ -139,11 +140,11 @@ const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實�
             </div>
           </a>
           <nav class="hidden md:flex items-center gap-1">
-            <a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">首頁</a>
-            <a href="/lessons/01-ai-landscape" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">六堂課</a>
-            <a href="/workshop" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">工作坊</a>
-            <a href="/resources/prerequisites" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習資源</a>
-            <a href="/progress" class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習進度</a>
+            <a href={`${base}/`} class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">首頁</a>
+            <a href={`${base}/lessons/01-ai-landscape`} class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">六堂課</a>
+            <a href={`${base}/workshop`} class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">工作坊</a>
+            <a href={`${base}/resources/prerequisites`} class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習資源</a>
+            <a href={`${base}/progress`} class="px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50 hover:text-boyo-700 transition-colors">學習進度</a>
           </nav>
           <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-boyo-50 text-bark-700" aria-label="開啟選單">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,11 +155,11 @@ const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實�
       </div>
       <div id="mobile-menu" class="md:hidden hidden border-t border-boyo-100 bg-cream-50">
         <div class="px-4 py-3 space-y-1">
-          <a href="/" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">首頁</a>
-          <a href="/lessons/01-ai-landscape" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">六堂課</a>
-          <a href="/workshop" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">工作坊</a>
-          <a href="/resources/prerequisites" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習資源</a>
-          <a href="/progress" class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習進度</a>
+          <a href={`${base}/`} class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">首頁</a>
+          <a href={`${base}/lessons/01-ai-landscape`} class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">六堂課</a>
+          <a href={`${base}/workshop`} class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">工作坊</a>
+          <a href={`${base}/resources/prerequisites`} class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習資源</a>
+          <a href={`${base}/progress`} class="block px-3 py-2 rounded-lg text-sm font-medium text-bark-700 hover:bg-boyo-50">學習進度</a>
         </div>
       </div>
     </header>
@@ -179,9 +180,9 @@ const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實�
           <div>
             <h4 class="font-medium text-white mb-3">課程內容</h4>
             <ul class="space-y-2 text-sm text-boyo-200">
-              <li><a href="/lessons/01-ai-landscape" class="hover:text-white transition-colors">AI 生態系概覽</a></li>
-              <li><a href="/workshop" class="hover:text-white transition-colors">全天工作坊</a></li>
-              <li><a href="/resources/prerequisites" class="hover:text-white transition-colors">課前準備</a></li>
+              <li><a href={`${base}/lessons/01-ai-landscape`} class="hover:text-white transition-colors">AI 生態系概覽</a></li>
+              <li><a href={`${base}/workshop`} class="hover:text-white transition-colors">全天工作坊</a></li>
+              <li><a href={`${base}/resources/prerequisites`} class="hover:text-white transition-colors">課前準備</a></li>
             </ul>
           </div>
           <div>

@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 
 const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
 const handouts = (await getCollection('handouts')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="全天工作坊" description="AI Agent 全天實作工作坊 — 6 小時從安裝到打造辦公室場景 Agent">
@@ -29,7 +30,7 @@ const handouts = (await getCollection('handouts')).sort((a, b) => a.data.order -
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {labs.map((lab, i) => (
         <Card
-          href={`/workshop/labs/${lab.slug}`}
+          href={`${base}/workshop/labs/${lab.slug}`}
           title={lab.data.title}
           description={lab.data.description}
           order={i + 1}
@@ -45,7 +46,7 @@ const handouts = (await getCollection('handouts')).sort((a, b) => a.data.order -
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {handouts.map((h) => (
         <Card
-          href={`/workshop/handouts/${h.slug}`}
+          href={`${base}/workshop/handouts/${h.slug}`}
           title={h.data.title}
           description={h.data.description}
           tag="講義"

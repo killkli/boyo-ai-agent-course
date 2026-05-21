@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 const lessons = (await getCollection('lessons')).sort((a, b) => a.data.order - b.data.order);
 const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
 const resources = (await getCollection('resources')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="首頁" description="博幼基金會 AI Agent 實作課程學員平台">
@@ -47,7 +48,7 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {lessons.map((lesson, i) => (
           <Card
-            href={`/lessons/${lesson.slug}`}
+            href={`${base}/lessons/${lesson.slug}`}
             title={lesson.data.title}
             description={lesson.data.description}
             order={i + 1}
@@ -71,7 +72,7 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {labs.map((lab, i) => (
           <Card
-            href={`/labs/${lab.slug}`}
+            href={`${base}/workshop/labs/${lab.slug}`}
             title={lab.data.title}
             description={lab.data.description}
             order={i + 1}
@@ -95,7 +96,7 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {resources.map((res) => (
           <Card
-            href={`/resources/${res.slug}`}
+            href={`${base}/resources/${res.slug}`}
             title={res.data.title}
             description={res.data.description}
             tag="資源"
@@ -106,7 +107,7 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
     </section>
 
     <section class="mt-20">
-      <a href="/progress" class="block bg-gradient-to-r from-boyo-500 to-boyo-600 rounded-2xl p-8 sm:p-10 text-white hover:shadow-xl hover:shadow-boyo-500/20 transition-shadow">
+      <a href={`${base}/progress`} class="block bg-gradient-to-r from-boyo-500 to-boyo-600 rounded-2xl p-8 sm:p-10 text-white hover:shadow-xl hover:shadow-boyo-500/20 transition-shadow">
         <div class="flex items-center justify-between">
           <div>
             <h2 class="font-serif font-bold text-2xl">查看學習進度</h2>

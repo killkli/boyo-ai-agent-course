@@ -6,6 +6,7 @@ export interface Props {
 }
 
 const { items, currentSlug, collection } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <nav class="space-y-1">
@@ -14,7 +15,7 @@ const { items, currentSlug, collection } = Astro.props;
   </h3>
   {items.map((item, i) => (
     <a
-      href={`/${collection}/${item.slug}`}
+      href={`${base}/${collection}/${item.slug}`}
       class:list={[
         'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all',
         item.slug === currentSlug
