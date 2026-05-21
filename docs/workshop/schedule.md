@@ -10,6 +10,14 @@
 - **人數建議**：16–24 人（分 4 組，每組 4–6 人）
 - **設備需求**：學員自備筆電（已安裝終端機、可上網）
 
+## 相關文件
+
+- [文件索引](./index.md)
+- [對外版獨立課表](./standalone-schedule.md)
+- [講師手冊](./instructor-guide.md)
+- [DOCX 生成腳本](./generate-standalone-schedule-docx.js)
+- [DOCX 成品](../../output/16-全天實作工作坊-獨立課表.docx)
+
 ## 課前準備
 
 ### 學員
