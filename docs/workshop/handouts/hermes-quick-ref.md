@@ -97,34 +97,39 @@ export GOOGLE_API_KEY="AI..."
 
 ## 工作坊指令範例
 
-### 場景 A：報表彙整
+### 場景 A：課輔中心週報彙整
 
 ```
-請讀取 ~/workshop-scenario-a/team-alpha.txt、team-beta.txt、team-gamma.txt，
-彙整為日報格式，存到 ~/workshop-scenario-a/daily-report.md
+請讀取 ~/workshop-scenario-a/puli-center.txt、zhudong-center.txt、xinpu-center.txt，
+將三個課輔中心的週進度彙整成統一格式，
+標記學童特殊狀況與缺漏資料，
+存到 ~/workshop-scenario-a/weekly-report.md
 ```
 
-### 場景 B：會議記錄
+### 場景 B：教學會議記錄
 
 ```
 請讀取 ~/workshop-scenario-b/meeting-raw.txt，
-整理出格式化的會議記錄和行動項目清單，
+整理出格式化的教學研討會議記錄和行動項目清單，
+包含學童個案追蹤，
 存到 ~/workshop-scenario-b/meeting-notes.md
 ```
 
-### 場景 C：客戶來信
+### 場景 C：學童家長來信
 
 ```
-請讀取 ~/workshop-scenario-c/email-01.txt、email-02.txt、email-03.txt，
-對每封信分類、判斷優先級和情緒，並提供回覆建議，
+請讀取 ~/workshop-scenario-c/letter-01.txt、letter-02.txt、letter-03.txt，
+對每封信分類（課程詢問、學童狀況反映、家長求助、資源申請、感謝回饋）、
+判斷優先級並提供回覆建議，
 存到 ~/workshop-scenario-c/classification.md
 ```
 
-### 場景 D：專案監控
+### 場景 D：課輔計畫監控
 
 ```
-請讀取 ~/workshop-scenario-d/project-alpha.txt、project-beta.txt、project-gamma.txt，
-分析進度健康度，標記異常和風險，
+請讀取 ~/workshop-scenario-d/plan-summer.txt、plan-digital.txt、plan-early-intervention.txt，
+分析三個課輔計畫的進度健康度，
+標記異常和風險，
 存到 ~/workshop-scenario-d/status-report.md
 ```
 
