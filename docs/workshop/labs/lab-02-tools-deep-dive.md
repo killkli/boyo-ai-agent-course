@@ -33,13 +33,13 @@
 ```bash
 mkdir -p ~/hermes-workshop/lab2
 cat > ~/hermes-workshop/lab2/notes.txt << 'EOF'
-週一：整理客戶會議摘要，需在今天下班前寄出
-週二：查詢競品 Agent 工具更新，整理三點差異
-週三：更新團隊待辦清單，補上截止日期
+課輔進度整理：本週各中心數學和英文課程完成率達 85%，需追蹤竹東中心進度落後的學童。
+教學資源搜尋：找到三套適合偏鄉課輔的免費英文教材，需評估是否適合下學期採用。
+社工個案追蹤：小恩家庭訪視已完成，社工師建議增加每週課輔次數。需更新個案記錄。
 EOF
 ```
 
-**講師提示**：這份資料刻意設計成「半結構化」文字，方便後續示範讀取、整理、寫檔與排程。
+**講師提示**：這份資料刻意設計成「半結構化」文字，內容為博幼基金會的課輔工作待辦，方便後續示範讀取、整理、寫檔與排程。
 
 ---
 
@@ -142,7 +142,7 @@ hermes tools enable web_search
 **Hermes 指令範例**
 
 ```text
-請搜尋「2026 年 AI Agent 企業應用趨勢」，整理 3 個重點，
+請搜尋「AI 在課輔教學的應用」，整理 3 個重點，
 每個重點用一句話說明，最後附上資料來源標題。
 ```
 
@@ -158,7 +158,7 @@ hermes tools enable web_search
 - 若搜尋結果品質參差，可示範追問：
 
 ```text
-請只保留與企業導入、工作流程自動化、知識工作相關的內容，重新整理。
+請只保留與課輔教學、偏鄉教育、學童學習支持相關的內容，重新整理。
 ```
 
 #### 步驟 3：簡短回顧（3 分鐘）
@@ -194,10 +194,10 @@ hermes tools enable file_write
 
 ```text
 請讀取 ~/hermes-workshop/lab2/notes.txt，
-把內容整理成一份 Markdown 工作摘要，格式包含：
-1. 今日優先處理
-2. 待追蹤事項
-3. 建議下一步
+把內容整理成一份 Markdown 課輔工作摘要，格式包含：
+1. 待優先處理的工作項目
+2. 需追蹤的學童與個案
+3. 建議下一步行動
 並存成 ~/hermes-workshop/lab2/summary.md
 ```
 
@@ -249,10 +249,10 @@ hermes tools enable scheduler
 **Hermes 指令範例**
 
 ```text
-請先搜尋「Hermes Agent 工具安全 best practices」，
+請先搜尋「偏鄉教育數位化工具」，
 整理成 3 點中文摘要，
 再讀取 ~/hermes-workshop/lab2/notes.txt，
-把搜尋重點和原本待辦整合成一份 Markdown 檔案，
+把搜尋重點和原本課輔待辦整合成一份 Markdown 檔案，
 存成 ~/hermes-workshop/lab2/tool-safety-brief.md。
 ```
 
@@ -274,22 +274,22 @@ hermes tools enable scheduler
 
 請學員兩人一組，自行改寫成適合自己的版本。可直接提供以下挑戰題：
 
-**挑戰題 A：競品更新簡報版**
+**挑戰題 A：課輔數位工具評估版**
 
 ```text
-請搜尋「2026 年 AI Agent office workflow updates」，
-整理 3 個和辦公室自動化最相關的變化，
+請搜尋「偏鄉教育數位化工具 2026」，
+整理 3 個和課輔教學最相關的工具或平台，
 再把結果寫成條列式 Markdown，
 存到 ~/hermes-workshop/lab2/agent-updates.md。
 ```
 
-**挑戰題 B：內部待辦整合版**
+**挑戰題 B：學童學習追蹤整合版**
 
 ```text
 請讀取 ~/hermes-workshop/lab2/notes.txt，
-再搜尋「任務追蹤 checklist best practices」，
-把搜尋到的做法套用到原始待辦內容，
-輸出成一份更清楚的待辦清單，
+再搜尋「課輔班學童學習追蹤 best practices」，
+把搜尋到的做法套用到原本的課輔待辦內容，
+輸出成一份更清楚的學童追蹤清單，
 存到 ~/hermes-workshop/lab2/action-list.md。
 ```
 
