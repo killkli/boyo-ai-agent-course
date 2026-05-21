@@ -29,43 +29,43 @@
 
 #### 1. 網頁瀏覽器
 
-- **用途**：存取 AI 平台網頁介面、查閱文件
-- **選項**：Chrome、Firefox、Safari、Edge 擇一（建議 Chrome）
-- **確認方式**：開啟瀏覽器，前往 [https://chat.openai.com](https://chat.openai.com)，確認頁面正常顯示
+- 用途：存取 AI 平台網頁介面、查閱文件
+- 選項：Chrome、Firefox、Safari、Edge 擇一（建議 Chrome）
+- 確認方式：開啟瀏覽器，前往 [https://chat.openai.com](https://chat.openai.com)，確認頁面正常顯示
 
 #### 2. Python 3.11 以上
 
-- **用途**：執行 Hermes Agent
-- **安裝方式**：
-  - **macOS**：`brew install python@3.11` 或從 [python.org](https://www.python.org/downloads/) 下載
-  - **Windows**：從 [python.org](https://www.python.org/downloads/) 下載安裝，勾選「Add Python to PATH」
-  - **Linux**：`sudo apt install python3.11`（Ubuntu/Debian）
-- **確認方式**：開啟終端機，執行以下指令：
+- 用途：執行 Hermes Agent
+- 安裝方式：
+  - macOS：`brew install python@3.11` 或從 [python.org](https://www.python.org/downloads/) 下載
+  - Windows：從 [python.org](https://www.python.org/downloads/) 下載安裝，勾選「Add Python to PATH」
+  - Linux：`sudo apt install python3.11`（Ubuntu/Debian）
+- 確認方式：開啟終端機，執行以下指令：
   ```bash
   python3 --version
   # 預期輸出：Python 3.11.x 或更高版本
   ```
-- **如果已安裝舊版 Python**：建議使用 `pyenv`（macOS/Linux）或直接安裝 3.11+
+- 如果已安裝舊版 Python：建議使用 `pyenv`（macOS/Linux）或直接安裝 3.11+
 
 #### 3. 終端機（Terminal）
 
-- **用途**：安裝和操作 Hermes Agent
-- **各系統預設**：
-  - **macOS**：Terminal.app 或 iTerm2
-  - **Windows**：Windows Terminal（建議）或 PowerShell
-  - **Linux**：GNOME Terminal 或其他終端機
-- **確認方式**：開啟終端機，輸入 `echo hello`，確認輸出 `hello`
+- 用途：安裝和操作 Hermes Agent
+- 各系統預設：
+  - macOS：Terminal.app 或 iTerm2
+  - Windows：Windows Terminal（建議）或 PowerShell
+  - Linux：GNOME Terminal 或其他終端機
+- 確認方式：開啟終端機，輸入 `echo hello`，確認輸出 `hello`
 
 #### 4. 文字編輯器
 
-- **用途**：檢視和編輯設定檔
-- **選項**：VS Code（建議）、Sublime Text、nano、vim 均可
-- **安裝 VS Code**：[https://code.visualstudio.com/](https://code.visualstudio.com/)
+- 用途：檢視和編輯設定檔
+- 選項：VS Code（建議）、Sublime Text、nano、vim 均可
+- 安裝 VS Code：[https://code.visualstudio.com/](https://code.visualstudio.com/)
 
 ### 可選但建議安裝
 
-- **Git**：用於下載範例專案（`git --version` 確認）
-- **Homebrew**（macOS）：套件管理器，方便安裝其他工具
+- Git：用於下載範例專案（`git --version` 確認）
+- Homebrew（macOS）：套件管理器，方便安裝其他工具
 
 ---
 
@@ -77,24 +77,24 @@
 
 #### 選項 A：OpenAI（建議首選）
 
-- **註冊**：[https://platform.openai.com/signup](https://platform.openai.com/signup)
-- **取得 API Key**：登入後前往 [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)，點選「Create new secret key」
-- **費用**：需儲值才能使用 API，建議先儲值 USD $5（約 NT$160），足夠課堂練習使用
-- **支援模型**：GPT-4o、GPT-4o Mini 等
+- 註冊：[https://platform.openai.com/signup](https://platform.openai.com/signup)
+- 取得 API Key：登入後前往 [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)，點選「Create new secret key」
+- 費用：需儲值才能使用 API，建議先儲值 USD $5（約 NT$160），足夠課堂練習使用
+- 支援模型：GPT-4o、GPT-4o Mini 等
 
 #### 選項 B：Anthropic
 
-- **註冊**：[https://console.anthropic.com/](https://console.anthropic.com/)
-- **取得 API Key**：登入後前往 Settings > API Keys，建立新的 Key
-- **費用**：需儲值，建議先儲值 USD $5
-- **支援模型**：Claude Sonnet、Claude Haiku 等
+- 註冊：[https://console.anthropic.com/](https://console.anthropic.com/)
+- 取得 API Key：登入後前往 Settings > API Keys，建立新的 Key
+- 費用：需儲值，建議先儲值 USD $5
+- 支援模型：Claude Sonnet、Claude Haiku 等
 
 #### 選項 C：Google AI（Gemini）
 
-- **註冊**：[https://aistudio.google.com/](https://aistudio.google.com/)
-- **取得 API Key**：點選「Get API Key」
-- **費用**：有免費額度，適合初步體驗
-- **支援模型**：Gemini Pro 等
+- 註冊：[https://aistudio.google.com/](https://aistudio.google.com/)
+- 取得 API Key：點選「Get API Key」
+- 費用：有免費額度，適合初步體驗
+- 支援模型：Gemini Pro 等
 
 ### 帳號安全提醒
 
@@ -118,7 +118,7 @@ curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 hermes --version
 ```
 
-**如果安裝遇到問題不用擔心**，課堂上會帶領大家逐步完成安裝。預先安裝的好處是上課時可以跳過安裝步驟，直接進入操作環節。
+安裝遇到問題不用擔心，課堂上會帶領大家逐步完成安裝。預先安裝的好處是上課時可以跳過安裝步驟，直接進入操作環節。
 
 ---
 
@@ -146,7 +146,7 @@ hermes --version
   - `api.anthropic.com`（Anthropic API）
   - `generativelanguage.googleapis.com`（Google AI API）
   - `github.com`（下載 Hermes Agent）
-- **測試方式**：在終端機執行以下指令，確認能正常連線：
+- 測試方式：在終端機執行以下指令，確認能正常連線：
   ```bash
   curl -s https://api.openai.com/ | head -1
   # 如果有輸出即表示連線正常
@@ -181,7 +181,7 @@ A：Hermes Agent 需要 3.11 以上版本。請升級 Python，建議使用 `pye
 A：建議改用個人筆電。如果只能使用公司筆電，請事先聯繫 IT 部門確認安裝權限。
 
 **Q：沒有 API Key 可以上課嗎？**
-A：可以旁聽，但無法參與實作環節。強烈建議事先準備好至少一個 API Key。
+A：可以旁聽，但無法參與實作環節。建議事先準備好至少一個 API Key。
 
 **Q：需要會寫 Python 程式嗎？**
 A：不需要。本課程的操作以指令和設定檔為主，不需要撰寫程式碼。但如果具備基本的 Python 概念會更有幫助。
