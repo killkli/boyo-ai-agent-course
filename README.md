@@ -1,6 +1,6 @@
 # Agent Tutor — 辦公室 AI Agent 實戰入門
 
-6 小時實體課程的規劃專案，教導在職人士理解 Model-Harness-Agent 三層架構，並實際操作 Hermes Agent 應用於辦公室場景。
+6 小時實體課程的規劃專案，教導在職人士理解 Model-Harness-Agent 三層架構，並實際操作 Hermes Agent 應用於辦公室場景。另提供 `docs/workshop/` 目錄，收錄 Hermes Agent 全天實作工作坊課表與相關說明。
 
 ## 專案結構
 
@@ -15,6 +15,8 @@ docs/
 │   ├── 04-agent-anatomy.md        #   Agent 解剖學
 │   ├── 05-hermes-hands-on.md      #   Hermes Agent 實作
 │   └── 06-office-workshop.md      #   辦公室場景工作坊
+├── workshop/                      # Hermes Agent 全天實作工作坊
+│   └── schedule.md                #   全天課表
 ├── online-materials/              # 線上自學教材
 │   ├── self-study-roadmap.md      #   自主學習路徑 (4 週)
 │   ├── prerequisites.md           #   課前準備清單
