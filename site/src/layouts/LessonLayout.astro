@@ -29,22 +29,36 @@ const next = currentIndex < sortedItems.length - 1 ? sortedItems[currentIndex + 
       </aside>
 
       <div class="flex-1 min-w-0">
-        <article class="prose prose-lg max-w-none
+        <article class="prose prose-lg max-w-4xl
           prose-headings:font-serif prose-headings:text-boyo-800
-          prose-h1:text-3xl prose-h1:border-b prose-h1:border-boyo-100 prose-h1:pb-3
-          prose-h2:text-2xl prose-h2:mt-10 prose-h2:text-boyo-700
-          prose-h3:text-xl prose-h3:text-boyo-700
-          prose-p:text-bark-900 prose-p:leading-relaxed
+
+          prose-h1:text-4xl prose-h1:mt-0 prose-h1:mb-8 prose-h1:leading-tight
+          prose-h1:border-b prose-h1:border-boyo-200 prose-h1:pb-4
+
+          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:leading-snug prose-h2:text-boyo-700
+          prose-h2:border-b prose-h2:border-boyo-100 prose-h2:pb-2
+
+          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:leading-snug prose-h3:text-boyo-700
+          prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:text-boyo-700
+
+          prose-p:text-bark-900 prose-p:leading-[1.9] prose-p:my-5
           prose-a:text-boyo-500 prose-a:no-underline hover:prose-a:underline
           prose-strong:text-boyo-700
           prose-code:bg-boyo-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:text-accent-400 prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-boyo-900 prose-pre:text-boyo-100 prose-pre:rounded-xl prose-pre:shadow-lg
-          prose-li:text-bark-900
-          prose-blockquote:border-boyo-300 prose-blockquote:bg-boyo-50/50 prose-blockquote:rounded-r-lg prose-blockquote:py-2 prose-blockquote:px-4
-          prose-table:border-boyo-200
-          prose-th:bg-boyo-50 prose-th:text-boyo-700 prose-th:font-medium
-          prose-td:border-boyo-100
-          prose-img:rounded-xl prose-img:shadow-md
+          prose-pre:bg-boyo-900 prose-pre:text-boyo-100 prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:py-5 prose-pre:px-6
+          prose-li:text-bark-900 prose-li:my-1.5
+          prose-ul:my-5 prose-ol:my-5
+
+          prose-blockquote:border-l-4 prose-blockquote:border-boyo-400 prose-blockquote:bg-boyo-50/60 prose-blockquote:rounded-r-lg prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:my-6
+          prose-blockquote:italic
+
+          prose-table:my-8 prose-table:border-collapse
+          prose-th:bg-boyo-700 prose-th:text-white prose-th:font-semibold prose-th:py-3 prose-th:px-4 prose-th:text-left
+          prose-td:border prose-td:border-boyo-200 prose-td:py-3 prose-td:px-4
+          prose-img:rounded-xl prose-img:shadow-md prose-img:my-8
+
+          prose-hr:border-boyo-200 prose-hr:my-10
+          prose-figure:my-8
         ">
           <slot />
         </article>

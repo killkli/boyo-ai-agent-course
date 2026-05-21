@@ -17,6 +17,72 @@ const { title = 'AI Agent 課程', description = '博幼基金會 AI Agent 實�
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet" />
     <title>{title} | 博幼 AI Agent 課程</title>
+    <style is:global>
+      /* -- Chinese reading comfort defaults -- */
+      html {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: "Noto Sans TC", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.8;
+      }
+
+      /* -- Table readability: zebra stripes + clear borders -- */
+      .prose table {
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+      }
+
+      @media (min-width: 640px) {
+        .prose table {
+          display: table;
+        }
+      }
+
+      .prose thead tr {
+        border-bottom: 2px solid #1d5548; /* boyo-700 */
+      }
+
+      .prose tbody tr {
+        border-bottom: 1px solid #d1f0e6; /* boyo-100 */
+        transition: background-color 0.15s ease;
+      }
+
+      .prose tbody tr:nth-child(even) {
+        background-color: #f0faf7; /* boyo-50 */
+      }
+
+      .prose tbody tr:hover {
+        background-color: #d1f0e6; /* boyo-100 */
+      }
+
+      .prose th {
+        white-space: nowrap;
+      }
+
+      /* -- Blockquote refinement -- */
+      .prose blockquote p:first-child {
+        margin-top: 0;
+      }
+      .prose blockquote p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* -- Ensure inline code does not break lines awkwardly in Chinese -- */
+      .prose code {
+        word-break: break-word;
+      }
+
+      /* -- Scrollable pre blocks on mobile -- */
+      .prose pre {
+        overflow-x: auto;
+      }
+    </style>
   </head>
   <body class="bg-cream-50 text-bark-900 font-sans antialiased min-h-screen flex flex-col">
     <header class="sticky top-0 z-50 bg-cream-50/90 backdrop-blur-sm border-b border-boyo-100 shadow-sm">
