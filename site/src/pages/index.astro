@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { getCollection } from 'astro:content';
+
+const lessons = (await getCollection('lessons')).sort((a, b) => a.data.order - b.data.order);
+const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
+const resources = (await getCollection('resources')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="首頁" description="博幼基金會 AI Agent 實作課程學員平台">
+  <div class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-boyo-50 via-cream-50 to-accent-50/20"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%232D8B75&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div class="text-center max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-boyo-100 text-boyo-600 text-sm font-medium mb-6">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg>
+          AI Agent 實作培訓
+        </div>
+        <h1 class="font-serif font-bold text-4xl sm:text-5xl text-boyo-800 leading-tight">
+          讓 AI 成為<br class="sm:hidden" />日常工作的好幫手
+        </h1>
+        <p class="mt-5 text-lg text-bark-700/70 leading-relaxed max-w-xl mx-auto">
+          為博幼基金會課輔老師與社工設計的 AI Agent 實作課程。從認識 AI 到親手打造辦公室自動化助手，一步步掌握 AI 工具。
+        </p>
+        <div class="mt-8">
+          <SearchBar />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <section>
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-lg bg-boyo-500 text-white flex items-center justify-center font-serif font-bold shadow-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+        </div>
+        <div>
+          <h2 class="font-serif font-bold text-2xl text-boyo-800">六堂課教案</h2>
+          <p class="text-sm text-bark-700/60">每堂 50-60 分鐘，循序漸進掌握 AI Agent</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {lessons.map((lesson, i) => (
+          <Card
+            href={`/lessons/${lesson.slug}`}
+            title={lesson.data.title}
+            description={lesson.data.description}
+            order={i + 1}
+            tag={lesson.data.duration}
+            tagColor="boyo"
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-lg bg-accent-400 text-white flex items-center justify-center font-serif font-bold shadow-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+        </div>
+        <div>
+          <h2 class="font-serif font-bold text-2xl text-boyo-800">全天工作坊</h2>
+          <p class="text-sm text-bark-700/60">6 小時實作，從安裝到打造辦公室場景 Agent</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {labs.map((lab, i) => (
+          <Card
+            href={`/labs/${lab.slug}`}
+            title={lab.data.title}
+            description={lab.data.description}
+            order={i + 1}
+            tag={lab.data.duration}
+            tagColor="accent"
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-lg bg-boyo-700/10 text-boyo-700 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+        </div>
+        <div>
+          <h2 class="font-serif font-bold text-2xl text-boyo-800">學習資源</h2>
+          <p class="text-sm text-bark-700/60">課前準備、延伸閱讀與參考資料</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {resources.map((res) => (
+          <Card
+            href={`/resources/${res.slug}`}
+            title={res.data.title}
+            description={res.data.description}
+            tag="資源"
+            tagColor="gray"
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <a href="/progress" class="block bg-gradient-to-r from-boyo-500 to-boyo-600 rounded-2xl p-8 sm:p-10 text-white hover:shadow-xl hover:shadow-boyo-500/20 transition-shadow">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="font-serif font-bold text-2xl">查看學習進度</h2>
+            <p class="mt-2 text-boyo-100 text-sm max-w-md">
+              追蹤你的學習狀態、瀏覽筆記記錄。所有資料儲存在瀏覽器中，不需登入帳號。
+            </p>
+          </div>
+          <svg class="w-8 h-8 text-white/40 flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </div>
+      </a>
+    </section>
+  </div>
+</BaseLayout>

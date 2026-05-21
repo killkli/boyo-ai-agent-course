@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProgressDashboard from '../components/ProgressDashboard.astro';
+---
+
+<BaseLayout title="學習進度" description="追蹤你的 AI Agent 課程學習進度與筆記">
+  <div class="bg-gradient-to-br from-boyo-50 to-cream-50 border-b border-boyo-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <h1 class="font-serif font-bold text-3xl text-boyo-800">學習進度</h1>
+      <p class="mt-2 text-bark-700/60">你的學習狀態與筆記記錄。所有資料儲存在瀏覽器中，可隨時匯出備份。</p>
+    </div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <ProgressDashboard />
+  </div>
+</BaseLayout>

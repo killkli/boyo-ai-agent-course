@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import LessonLayout from '../../../layouts/LessonLayout.astro';
+
+export async function getStaticPaths() {
+  const handouts = await getCollection('handouts');
+  return handouts.map((h) => ({
+    params: { slug: h.slug },
+    props: { handout: h },
+  }));
+}
+
+const { handout } = Astro.props;
+const { Content } = await handout.render();
+const allHandouts = (await getCollection('handouts')).sort((a, b) => a.data.order - b.data.order);
+const items = allHandouts.map(h => ({ slug: h.slug, title: h.data.title, order: h.data.order }));
+---
+
+<LessonLayout
+  title={handout.data.title}
+  collection="workshop/handouts"
+  contentId={`handout-${handout.slug}`}
+  items={items}
+  currentSlug={handout.slug}
+>
+  <Content />
+</LessonLayout>

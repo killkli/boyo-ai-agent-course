@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
+const handouts = (await getCollection('handouts')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="全天工作坊" description="AI Agent 全天實作工作坊 — 6 小時從安裝到打造辦公室場景 Agent">
+  <div class="bg-gradient-to-br from-accent-50 to-cream-50 border-b border-accent-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-100 text-accent-500 text-sm font-medium mb-4">
+          全天實作工作坊
+        </div>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-boyo-800">
+          AI Agent 辦公室場景工作坊
+        </h1>
+        <p class="mt-4 text-bark-700/70 leading-relaxed">
+          6 小時的密集實作課程，從安裝 Hermes 開始，一步步打造四個博幼基金會辦公室場景的自動化 Agent。每個 Lab 約 50 分鐘，包含講解與動手操作時間。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">實作單元</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {labs.map((lab, i) => (
+        <Card
+          href={`/workshop/labs/${lab.slug}`}
+          title={lab.data.title}
+          description={lab.data.description}
+          order={i + 1}
+          tag={`Lab ${i + 1} · ${lab.data.duration}`}
+          tagColor="accent"
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">工作坊講義</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {handouts.map((h) => (
+        <Card
+          href={`/workshop/handouts/${h.slug}`}
+          title={h.data.title}
+          description={h.data.description}
+          tag="講義"
+          tagColor="boyo"
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>
