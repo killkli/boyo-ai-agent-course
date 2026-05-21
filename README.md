@@ -37,9 +37,9 @@ docs/
 
 ## 核心技術棧
 
-- **Hermes Agent** — Nous Research 開源 AI Agent 框架（MIT 授權）
-- **Harness Paradigm** — 模型提供智慧，Harness 提供控制
-- **Model-Agent-Harness 三層架構** — 本課程的核心知識框架
+- Hermes Agent — Nous Research 開源 AI Agent 框架（MIT 授權）
+- Harness Paradigm — 模型提供智慧，Harness 提供控制
+- Model-Agent-Harness 三層架構 — 本課程的核心知識框架
 
 ## 線上自學配套
 
