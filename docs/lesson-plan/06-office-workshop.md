@@ -422,7 +422,7 @@
 
 **社群與資源**
 
-- Hermes 官方 Discord：https://discord.gg/hermes-agent（提問和交流）
+- Hermes 官方 Discord：https://discord.gg/nousresearch（提問和交流）
 - Nous Research GitHub：https://github.com/nousresearch（原始碼和範例）
 - 課程專屬交流群：[講師提供連結]
 - 建議學員訂閱 AI Agent 相關電子報，持續追蹤產業動態
