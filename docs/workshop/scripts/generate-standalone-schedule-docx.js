@@ -5,7 +5,7 @@ const {
   HeadingLevel, PageBreak, Footer, PageNumber, LevelFormat
 } = require('docx');
 
-const out = '/Users/johnchen/AICoding/2026-7-agent-tutor/output/16-全天實作工作坊-獨立課表.docx';
+const out = '/Users/johnchen/AICoding/2026-7-agent-tutor/output/workshop/16-全天實作工作坊-獨立課表.docx';
 const blue = '1F3A5F';
 const teal = '2F7E7B';
 const amber = 'D98E04';

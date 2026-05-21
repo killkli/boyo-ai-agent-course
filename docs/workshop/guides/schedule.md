@@ -12,11 +12,11 @@
 
 ## 相關文件
 
-- [文件索引](./index.md)
-- [對外版獨立課表](./standalone-schedule.md)
+- [文件索引](../index.md)
+- [對外版獨立課表](../handouts/standalone-schedule.md)
 - [講師手冊](./instructor-guide.md)
-- [DOCX 生成腳本](./generate-standalone-schedule-docx.js)
-- [DOCX 成品](../../output/16-全天實作工作坊-獨立課表.docx)
+- [DOCX 生成腳本](../scripts/generate-standalone-schedule-docx.js)
+- [DOCX 成品](../../../output/workshop/16-全天實作工作坊-獨立課表.docx)
 
 ## 課前準備
 

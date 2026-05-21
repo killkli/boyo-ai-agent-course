@@ -15,12 +15,12 @@ docs/
 │   ├── 04-agent-anatomy.md        #   Agent 解剖學
 │   ├── 05-hermes-hands-on.md      #   Hermes Agent 實作
 │   └── 06-office-workshop.md      #   辦公室場景工作坊
-├── workshop/                      # Hermes Agent 全天實作工作坊
+├── workshop/                      # Hermes Agent 全天實作工作坊（獨立結構）
 │   ├── index.md                   #   文件索引
-│   ├── schedule.md                #   完整課表
-│   ├── standalone-schedule.md     #   對外版獨立課表
-│   ├── instructor-guide.md        #   講師手冊
-│   └── lab-01...lab-06            #   六個實作單元
+│   ├── guides/                    #   課表與講師文件
+│   ├── labs/                      #   六個實作單元
+│   ├── handouts/                  #   學員講義與對外版資料
+│   └── scripts/                   #   輸出腳本
 ├── online-materials/              # 線上自學教材
 │   ├── self-study-roadmap.md      #   自主學習路徑 (4 週)
 │   ├── prerequisites.md           #   課前準備清單
