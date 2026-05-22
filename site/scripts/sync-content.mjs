@@ -82,16 +82,18 @@ const MAPPING = [
     src: 'online-materials',
     pattern: null,
     orderMap: {
-      'prerequisites': 1,
-      'resources': 2,
-      'self-study-roadmap': 3,
+      'cloud-ai-service-guide': 1,
+      'prerequisites': 2,
+      'resources': 3,
+      'self-study-roadmap': 4,
     },
     getMeta: (match, title, filename) => {
       const base = filename.replace('.md', '');
       const orderMap = {
-        'prerequisites': 1,
-        'resources': 2,
-        'self-study-roadmap': 3,
+        'cloud-ai-service-guide': 1,
+        'prerequisites': 2,
+        'resources': 3,
+        'self-study-roadmap': 4,
       };
       return { title, order: orderMap[base] || 99 };
     },

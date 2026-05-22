@@ -1,6 +1,6 @@
 ---
 title: "雲端 AI 服務連接指南：API Key 取得與串接原理"
-order: 99
+order: 1
 ---
 
 # 雲端 AI 服務連接指南：API Key 取得與串接原理

@@ -1,6 +1,6 @@
 ---
 title: "課前準備清單 — 辦公室 AI Agent 實戰入門"
-order: 1
+order: 2
 ---
 
 # 課前準備清單 — 辦公室 AI Agent 實戰入門
@@ -36,7 +36,7 @@ order: 1
 
 - 用途：存取 AI 平台網頁介面、查閱文件
 - 選項：Chrome、Firefox、Safari、Edge 擇一（建議 Chrome）
-- 確認方式：開啟瀏覽器，前往 [https://chat.openai.com](https://chat.openai.com)，確認頁面正常顯示
+- 確認方式：開啟瀏覽器，前往 [https://aistudio.google.com](https://aistudio.google.com)，確認頁面正常顯示
 
 #### 2. Python 3.11 以上
 
@@ -78,28 +78,37 @@ order: 1
 
 ### AI 平台 API Key（至少準備一個）
 
-課程中會使用 AI 模型的 API 服務。請至少準備以下其中一個平台的 API Key：
+課程中會使用 AI 模型的 API 服務。請至少準備以下其中一個平台的 API Key。
 
-#### 選項 A：OpenAI（建議首選）
+> 詳細的 API Key 取得步驟和連接原理，請參閱「[雲端 AI 服務連接指南](./cloud-ai-service-guide.md)」。
+
+#### 選項 A：Google Gemini AI Studio（建議首選）
+
+- 註冊：[https://aistudio.google.com/](https://aistudio.google.com/)（用 Google 帳號即可）
+- 取得 API Key：登入後前往 [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)，點選「Create API Key」
+- 費用：**完全免費**，有充足的免費額度（Flash 系列每日約 1,500-5,000 次請求），課堂練習綽綽有餘
+- 支援模型：Gemini 3.5 Flash、Gemini 2.5 Flash、Gemini 2.5 Pro 等
+
+#### 選項 B：OpenRouter（免費模型方案）
+
+- 註冊：[https://openrouter.ai/](https://openrouter.ai/)（GitHub、Google 或 Email 登入）
+- 取得 API Key：登入後前往 [https://openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)，點選「Create New Key」
+- 費用：約 30 個模型完全免費（模型 ID 結尾有 `:free`），不需儲值即可使用
+- 支援模型：超過 400 種模型，包括 NVIDIA Nemotron、Qwen3、DeepSeek R1 等免費模型
+
+#### 選項 C：OpenAI
 
 - 註冊：[https://platform.openai.com/signup](https://platform.openai.com/signup)
 - 取得 API Key：登入後前往 [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)，點選「Create new secret key」
-- 費用：需儲值才能使用 API，建議先儲值 USD $5（約 NT$160），足夠課堂練習使用
+- 費用：需儲值才能使用 API，建議先儲值 USD $5（約 NT$160）
 - 支援模型：GPT-4o、GPT-4o Mini 等
 
-#### 選項 B：Anthropic
+#### 選項 D：Anthropic
 
 - 註冊：[https://console.anthropic.com/](https://console.anthropic.com/)
 - 取得 API Key：登入後前往 Settings > API Keys，建立新的 Key
 - 費用：需儲值，建議先儲值 USD $5
 - 支援模型：Claude Sonnet、Claude Haiku 等
-
-#### 選項 C：Google AI（Gemini）
-
-- 註冊：[https://aistudio.google.com/](https://aistudio.google.com/)
-- 取得 API Key：點選「Get API Key」
-- 費用：有免費額度，適合初步體驗
-- 支援模型：Gemini Pro 等
 
 ### 帳號安全提醒
 
@@ -142,18 +151,19 @@ hermes --version
 - 如果你使用公司筆電並需透過 VPN 連線，請注意：
   - VPN 可能限制外部 API 的存取
   - 建議上課時暫時關閉 VPN，或改用個人筆電
-  - 如果無法關閉 VPN，請事先測試是否能連線到 `api.openai.com`
+  - 如果無法關閉 VPN，請事先測試是否能連線到 `aistudio.google.com` 或 `openrouter.ai`
 
 #### 公司防火牆
 
 - 部分公司防火牆會阻擋以下連線：
+  - `generativelanguage.googleapis.com`（Google Gemini API）
+  - `openrouter.ai`（OpenRouter API）
   - `api.openai.com`（OpenAI API）
   - `api.anthropic.com`（Anthropic API）
-  - `generativelanguage.googleapis.com`（Google AI API）
   - `github.com`（下載 Hermes Agent）
 - 測試方式：在終端機執行以下指令，確認能正常連線：
   ```bash
-  curl -s https://api.openai.com/ | head -1
+  curl -s https://generativelanguage.googleapis.com/ | head -1
   # 如果有輸出即表示連線正常
   ```
 - 如果被防火牆阻擋，建議改用個人筆電或手機熱點
@@ -169,8 +179,8 @@ hermes --version
 - [ ] 終端機可正常開啟
 - [ ] Python 3.11+ 已安裝（`python3 --version` 確認）
 - [ ] 文字編輯器可用（建議 VS Code）
-- [ ] 至少一個 AI 平台帳號已註冊，且已取得 API Key
-- [ ] API 帳號已儲值或有可用額度
+- [ ] 至少一個 AI 平台帳號已註冊，且已取得 API Key（建議 Google Gemini 或 OpenRouter，免費即可）
+- [ ] API 帳號有可用額度（Google Gemini 和 OpenRouter 免費模型不需儲值）
 - [ ] 已將 API Key 記錄在安全的地方（密碼管理器或筆記本）
 - [ ] 課程講義已下載或可線上存取
 - [ ] 已閱讀課程大綱，了解課程進行方式

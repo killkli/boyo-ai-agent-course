@@ -1,6 +1,6 @@
 ---
 title: "延伸閱讀與參考資源 — 辦公室 AI Agent 實戰入門"
-order: 2
+order: 3
 ---
 
 # 延伸閱讀與參考資源 — 辦公室 AI Agent 實戰入門
