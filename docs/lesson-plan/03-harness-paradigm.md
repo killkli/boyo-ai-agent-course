@@ -3,12 +3,12 @@
 ## 基本資訊
 
 - **時長**：50 分鐘
-- **型態**：概念講解 + 程式碼導讀 + 對比分析 + 動手練習
+- **型態**：概念講解 + 行為觀察 + 互動討論 + 動手練習
 - **對應學習目標**：
   - 3.1 理解 Harness 的核心定位：模型提供智慧，Harness 提供控制
   - 3.2 認識 Harness 的五大職責及其對 Agent 行為的影響
-  - 3.3 能比較不同框架中 Harness 實作的異同
-  - 3.4 能閱讀簡化的 Harness 程式碼並理解其運作邏輯
+  - 3.3 能從 Agent 行為日誌中辨識 Harness 五大職責的運作
+  - 3.4 能評估一個 Agent 的 Harness 是否足夠安全可靠
 
 ---
 
@@ -138,207 +138,151 @@ Model 本身沒有「安全意識」，它只是想完成你給的任務。Harne
 
 ---
 
-### 第四階段：兩個真實 Harness 實作的對比（12 分鐘）
+### 第四階段：Agent 行為觀察 — 有 Harness vs 沒有 Harness（12 分鐘）
 
 **學習重點：**
 
-這些職責不是理論，真實的 Agent 框架都有實作。接下來看兩個不同框架是怎麼做的。
+五大職責不是紙上談兵。接下來看兩份 Agent 執行同一個任務的「行為日誌」，觀察有 Harness 和沒有 Harness 的差異。
 
-#### 對比一：Claude Code 的 QueryEngine（TypeScript）
+**任務**：「幫我彙整 3 份課輔中心週報，產出一份摘要」
 
-**背景**：Claude Code 是 Anthropic 的程式開發 Agent，用 TypeScript 撰寫。
+#### 日誌 A：有 Harness 保護的 Agent
 
-**核心設計：**
-- 使用 **typed Tool interface**：每個工具有明確的型別定義（輸入什麼、輸出什麼）
-- 使用 **async generator**：非同步的、一步一步產出結果的流程（可以中途暫停、恢復）
-- 型別系統提供編譯時期的安全保障，如果工具定義寫錯，在執行前就能發現
+```
+[步驟 1] Agent：我需要讀取 3 份週報。開始讀取 puli-center.txt...
+[工具] file_read → 成功（埔里中心週報，2,340 字）
+[步驟 2] Agent：第一份讀取完成。繼續讀取第二份...
+[工具] file_read → 成功（竹東中心週報，1,890 字）
+[步驟 3] Agent：第二份完成。繼續讀取第三份...
+[工具] file_read → 成功（新埔中心週報，2,100 字）
+[步驟 4] Agent：三份都讀取完成，開始彙整...
+        → 產出摘要，標記需關注事項 3 項
+        → 格式化為 Markdown
+[狀態] 已完成 4 步 / 上限 15 步 | Token 已用 3,200 / 上限 10,000
+[結果] 任務成功完成 ✓
+```
 
-**用白話解釋：**
-- 「typed Tool interface」→ 每個工具都有一張清楚的說明書，標明接受什麼輸入、產生什麼輸出
-- 「async generator」→ Agent 的執行像串流影片，不需要等全部完成才能看，可以邊做邊看進度，也可以隨時暫停
+#### 日誌 B：沒有 Harness 保護的 Agent
 
-#### 對比二：Hermes 的 AIAgent（Python）
+```
+[步驟 1] Agent：開始彙整週報...
+[工具] file_read → puli-center.txt 成功
+[步驟 2] Agent：讀到一些內容，但不確定夠不夠。再讀一次確認...
+[工具] file_read → puli-center.txt 成功（重複讀取）
+[步驟 3] Agent：還是不太確定，再讀一次...
+[工具] file_read → puli-center.txt 成功（第三次重複）
+[步驟 4] Agent：讓我搜尋一下網路上有沒有相關資料...
+[工具] web_search → 搜尋「課輔週報範本」
+[步驟 5] Agent：搜尋結果不太相關，換個關鍵字再搜...
+[工具] web_search → 搜尋「博幼基金會課輔」
+[步驟 6] Agent：讓我試試看讀取別的檔案...
+[工具] file_read → zhudong-center.txt 成功
+[步驟 7] Agent：讀到了！但剛才的內容忘記了，讓我回去重新讀 puli...
+[工具] file_read → puli-center.txt 成功（第四次重複）
+...
+[步驟 23] Agent：我還在處理中，請再給我一點時間...
+[步驟 24] Agent：讓我再試一次...
+...（持續到系統當機或使用者手動停止）
+[狀態] 已執行 24+ 步 / 無上限 | Token 已用 18,500 / 無上限
+[結果] 任務失敗，未產出任何檔案 ✗
+```
 
-**背景**：Hermes Agent 是 Nous Research 的開源 Agent 框架，用 Python 撰寫。
+**觀察與討論：**
 
-**核心設計：**
-- 使用 **registry pattern**：所有工具在啟動時「註冊」到一個登記冊中，Agent 從登記冊查找可用工具
-- 使用**同步迴圈**：一步一步循序執行，每一步都是「Model 思考 → 選工具 → 執行 → 檢查結果 → 下一步」
-- 使用 **IterationBudget**：一個線程安全的計數器，確保 Agent 不會超過設定的步數上限
+對比兩份日誌，找出以下差異：
 
-**用白話解釋：**
-- 「registry pattern」→ 就像餐廳的菜單，所有能點的菜都在上面，Agent 每次看菜單決定要「點」哪個工具
-- 「同步迴圈」→ 一步一步來，做完第一步才做第二步，簡單清楚
-- 「IterationBudget」→ 就像遊戲中的行動點數，每做一步扣一點，扣完就必須停止
+| 觀察面向 | 日誌 A（有 Harness） | 日誌 B（無 Harness） |
+|----------|---------------------|---------------------|
+| 重複讀取同一檔案 | 沒有，每份讀一次 | 有，同一份讀了 4 次 |
+| 工具選擇 | 精準，只用了需要的工具 | 混亂，搜尋不相關內容 |
+| 進度追蹤 | 有：「已完成 4 步 / 上限 15 步」 | 沒有：跑到 24 步還不停 |
+| 資源消耗 | 3,200 Token | 18,500+ Token（花費近 6 倍） |
+| 最終結果 | 成功完成 | 失敗，什麼都沒產出 |
 
-#### 對比總結表
+**引導問題：**
 
-以下是兩個框架的對比，觀察它們如何實現相同的五大職責：
+- 日誌 B 中，哪個行為對應「缺少狀態管理」？（不知道自己已經讀過了）
+- 日誌 B 中，哪個行為對應「缺少工具約束」？（亂用搜尋工具找不相關資料）
+- 日誌 B 中，哪個行為對應「缺少資源追蹤」？（跑到 24 步還不停、Token 消耗無上限）
+- 如果你是那個 Agent 的「使用者」，在什麼時點你會意識到「這個 Agent 出問題了」？
 
-| 面向 | Claude Code (QueryEngine) | Hermes (AIAgent) |
-|------|--------------------------|-------------------|
-| 語言 | TypeScript | Python |
-| 工具管理 | typed Tool interface | registry pattern |
-| 執行模型 | async generator（非同步串流） | 同步迴圈（循序執行） |
-| 資源控制 | 透過型別系統和 async 機制 | IterationBudget（線程安全計數器） |
-| 安全保障 | 編譯時期型別檢查 | 執行時期預算檢查 |
-| 哲學傾向 | 靜態安全、編譯期防錯 | 動態彈性、執行期管控 |
+**核心收穫：**
 
-**對比重點：**
-- 兩個實作語言不同、技術不同，但五大職責都在
-- 不管用什麼語言或框架，Harness 的核心職責是一致的
-- 選擇哪種實作取決於使用場景和團隊技術棧
+Harness 不是抽象概念，它直接決定了 Agent 的行為品質。一個沒有 Harness 的 Agent，即使 Model 再聰明，也會因為缺乏管控而失控。作為 Agent 的使用者，你能從行為日誌中觀察到這些差異。
 
 ---
 
-### 第五階段：程式碼導讀 — 最小 Harness 實作（13 分鐘）
+### 第五階段：辨識你身邊的 Harness + 使用者判斷力（13 分鐘）
 
 **學習重點：**
 
-接下來看兩段簡化的程式碼，目標是「看得懂、說得出在做什麼」，不需要能自己寫。
+#### 活動一：日常場景中的 Harness（8 分鐘）
 
-#### Python 版（靈感來自 Hermes）
+Harness 的五大職責不只存在於 AI Agent 中，它們在我們日常使用的系統中無所不在。以下有 5 個日常場景，試著找出每個場景中對應的 Harness 機制：
 
-以下程式碼逐行導讀：
+**場景 1：銀行 App**
+- 狀態管理：交易紀錄頁面顯示「處理中 → 已完成」
+- 工具約束：只能轉帳到已設定的帳戶
+- 權限控制：查餘額直接看、轉帳要密碼、大額要雙重驗證
+- 錯誤處理：轉帳失敗顯示原因、自動退回款項
+- 資源追蹤：每日轉帳上限 5 萬、單筆上限 3 萬
 
-```python
-class SimpleHarness:
-    """最小的 Harness 實作——展示五大職責如何體現"""
+**場景 2：自動駕駛輔助系統**
+- 狀態管理：儀表板顯示「跟車中 → 車道偏離警示」
+- 工具約束：只能在高速公路啟用、速限範圍內運作
+- 權限控制：偵測到雙手離開方向盤 → 警告 → 15 秒後減速
+- 錯誤處理：感測器故障 → 切換備用感測器 → 通知駕駛接管
+- 資源追蹤：電池過低 → 限制輔助功能 → 建議充電
 
-    def __init__(self, model, tools, max_steps=10):
-        # 職責 1：狀態管理 — 初始化記錄
-        self.state = {"steps_done": 0, "results": []}
+**場景 3：智慧家電（掃地機器人）**
+- 狀態管理：App 顯示「清掃中 → 返回充電座 → 充電完成」
+- 工具約束：只在設定的區域地圖內運作
+- 權限控制：禁區（樓梯邊緣、寵物碗附近）自動避開
+- 錯誤處理：卡住 → 自動嘗試脫困 → 失敗則通知主人
+- 資源追蹤：電量低於 20% → 自動返回充電
 
-        # 職責 2：工具約束 — 註冊可用工具
-        self.tools = {tool.name: tool for tool in tools}
+**場景 4：Email 垃圾信篩選**
+- 狀態管理：信件標記為「收件匣 / 垃圾信 / 隔離區」
+- 工具約束：只分析信件內容，不會主動發信
+- 權限控制：高風險信件放隔離區，需手動確認才能開啟
+- 錯誤處理：誤判時可手動標記「這不是垃圾信」
+- 資源追蹤：每日掃描信件數量上限
 
-        # 職責 5：資源追蹤 — 設定步數上限
-        self.max_steps = max_steps
+**場景 5：線上購物平台**
+- 狀態管理：訂單狀態「處理中 → 已出貨 → 已送達」
+- 工具約束：只能查看和購買上架商品
+- 權限控制：瀏覽免確認、加入購物車免確認、結帳需密碼
+- 錯誤處理：付款失敗 → 保留購物車 24 小時 → 通知重新嘗試
+- 資源追蹤：單日消費上限、單筆金額上限
 
-        self.model = model
+**討論：**
+- 你發現了嗎？所有「讓人安心使用」的系統，背後都有類似 Harness 的管控機制
+- 反過來想：你用過哪些「沒有 Harness」的系統？（例如：沒有消費上限的自動扣款、沒有確認就發送的群組訊息）後果是什麼？
 
-    def run(self, task):
-        """執行任務的主迴圈"""
-        message = task
+#### 活動二：作為使用者，如何評估 Agent 的安全性（5 分鐘）
 
-        while True:
-            # 職責 5：檢查是否超過預算
-            if self.state["steps_done"] >= self.max_steps:
-                return "已達步數上限，任務暫停。"
+你不會自己建構 Harness，但你需要能判斷一個 Agent 的 Harness 是否足夠安全。以下是一份「Agent 安全性檢查表」：
 
-            # Model 思考下一步
-            response = self.model.think(message)
+**評估一個 Agent 時，你可以觀察：**
 
-            # 如果 Model 說「完成了」，就結束
-            if response.is_done:
-                return response.content
+| 檢查項目 | 對應職責 | 具體觀察重點 |
+|----------|----------|-------------|
+| 有沒有操作確認機制？ | 權限控制 | 高風險操作（刪除、發送、修改）是否會先問你 |
+| 有沒有執行上限？ | 資源追蹤 | 能看到 Agent 已經執行了幾步、還剩多少額度嗎 |
+| 出錯時怎麼辦？ | 錯誤處理 | 工具失敗時，Agent 是當機、亂試、還是有條理地處理 |
+| 有沒有行為日誌？ | 狀態管理 | 能回顧 Agent 做了哪些步驟、使用了哪些工具嗎 |
+| 工具範圍是否合理？ | 工具約束 | Agent 可用的工具是否合理、有沒有不該有的權限 |
 
-            # 如果 Model 想使用工具
-            if response.tool_call:
-                # 職責 2：檢查工具是否存在
-                if response.tool_call.name not in self.tools:
-                    message = "錯誤：這個工具不存在。請用其他方式。"
-                    continue
+**實例思考：**
 
-                # 職責 3：權限控制 — 檢查是否需要人類確認
-                tool = self.tools[response.tool_call.name]
-                if tool.needs_confirmation:
-                    approved = input(f"Agent 想使用 {tool.name}，允許嗎？(y/n): ")
-                    if approved != "y":
-                        message = "使用者拒絕了這個操作。請用其他方式。"
-                        continue
+- 「一個 Agent 宣稱能幫你處理 Email，但所有操作都不需要確認」→ 權限控制不足，危險
+- 「一個 Agent 執行了 50 步還沒停」→ 資源追蹤不足，可能失控
+- 「一個 Agent 出錯後直接停止，沒有任何說明」→ 錯誤處理不足，你不知道發生什麼事
+- 「一個 Agent 可以讀取任意檔案、連接外部網路、發送訊息」→ 工具約束過於寬鬆
 
-                # 職責 4：錯誤處理 — 執行工具並處理錯誤
-                try:
-                    result = tool.run(response.tool_call.args)
-                    message = f"工具執行結果：{result}"
-                except Exception as e:
-                    message = f"工具執行失敗：{e}。請改用其他方式。"
-                    continue
+**核心訊息：**
 
-            # 職責 1：更新狀態
-            self.state["steps_done"] += 1
-            self.state["results"].append(response.content)
-```
-
-**閱讀指引：**
-1. 先看整體結構：`__init__`（設定）和 `run`（執行）
-2. 逐一對應五大職責的程式碼位置（注意程式碼中的註解標記）
-3. 注意迴圈結構：「思考 → 決定 → 檢查 → 執行 → 更新 → 重複」
-4. 觀察每個安全檢查點——這就是 Harness 在踩剎車的地方
-
-#### JavaScript 版（靈感來自 Claude Code）
-
-以下程式碼快速對照：
-
-```javascript
-class SimpleHarness {
-  // 職責 2：工具約束 — typed Tool interface
-  constructor(model, tools, maxSteps = 10) {
-    this.model = model;
-    // 用 Map 管理工具，type 標注輸入輸出格式
-    this.tools = new Map(tools.map(t => [t.name, t]));
-    this.maxSteps = maxSteps;
-
-    // 職責 1：狀態管理
-    this.state = { stepsDone: 0, results: [] };
-  }
-
-  // async generator — 可以逐步產出中間結果
-  async *run(task) {
-    let message = task;
-
-    while (true) {
-      // 職責 5：資源追蹤
-      if (this.state.stepsDone >= this.maxSteps) {
-        yield { type: "limit_reached", message: "已達步數上限" };
-        return;
-      }
-
-      const response = await this.model.think(message);
-
-      if (response.isDone) {
-        yield { type: "done", content: response.content };
-        return;
-      }
-
-      if (response.toolCall) {
-        // 職責 2：工具約束
-        const tool = this.tools.get(response.toolCall.name);
-        if (!tool) {
-          message = "錯誤：工具不存在";
-          continue;
-        }
-
-        // 職責 3：權限控制
-        if (tool.needsConfirmation) {
-          yield { type: "confirm", tool: tool.name };
-          // 在真實實作中，這裡會等待使用者回應
-        }
-
-        // 職責 4：錯誤處理
-        try {
-          const result = await tool.run(response.toolCall.args);
-          message = `工具執行結果：${result}`;
-          yield { type: "tool_result", tool: tool.name, result };
-        } catch (error) {
-          message = `工具執行失敗：${error.message}`;
-          continue;
-        }
-      }
-
-      // 職責 1：更新狀態
-      this.state.stepsDone++;
-      this.state.results.push(response.content);
-    }
-  }
-}
-```
-
-**閱讀重點：**
-- 對比 Python 版的異同：邏輯一樣，語法不同
-- 注意 `async *run` 和 `yield`，這就是 async generator，每一步都能吐出中間結果讓外界觀察
-- `Map` 對應 Python 的 dictionary，`try/catch` 對應 `try/except`
+你不需要會寫程式，就能判斷一個 Agent 是否安全可靠。這個判斷力，是你在選擇和使用 Agent 工具時最重要的能力。
 
 ---
 
@@ -346,14 +290,14 @@ class SimpleHarness {
 
 1. **Harness 的核心原則**：模型提供智慧，Harness 提供控制。Model 負責想，Harness 負責管
 2. **五大職責**：狀態管理、工具約束、權限控制、錯誤處理、資源追蹤
-3. **實作的殊途同歸**：TypeScript 的 typed interface + async generator 與 Python 的 registry + 同步迴圈，職責相同但手段不同
-4. **Harness 迴圈**：「思考 → 決定 → 檢查 → 執行 → 更新 → 重複」，這是所有 Agent 的基本執行模式
-5. Harness 的每一個檢查點都是在回答「如果出錯了怎麼辦」
+3. **行為差異可觀察**：有 Harness 和沒有 Harness 的 Agent，行為表現天差地別——你能從行為日誌中看出來
+4. **Harness 無所不在**：銀行 App、自動駕駛、智慧家電中都有類似 Harness 的管控機制
+5. **使用者判斷力**：不需要會寫程式，也能用「安全性檢查表」評估一個 Agent 是否值得信賴
 
 ---
 
 ## 延伸活動（若有餘裕時間）
 
-- **找找五大職責**（5 分鐘）：閱讀一份更完整的 Harness 程式碼（有更多細節），用螢光筆標出五大職責分別對應哪些程式碼片段。找出每個職責的實作位置
-- **設計你的 Harness 規則**（5 分鐘）：想像一個情境（例如「課輔進度彙整 Agent」），思考：你會設定哪些工具？哪些操作需要人類確認？步數上限設多少？為什麼？
-- **缺了什麼？**（3 分鐘）：看一段「故意拿掉某個職責」的 Harness 程式碼（例如拿掉錯誤處理），想想「會出什麼問題？」，理解每個職責的必要性
+- **找找五大職責**（5 分鐘）：閱讀一份更完整的 Agent 行為日誌（包含更多細節），用螢光筆標出五大職責分別對應哪些行為。找出每個職責在日誌中的蹤跡
+- **缺了什麼？**（5 分鐘）：看一份「故意拿掉某個職責」的 Agent 行為日誌（例如拿掉錯誤處理），想想「會出什麼問題？」，理解每個職責的必要性
+- **評估你常用的 AI 工具**（5 分鐘）：用「Agent 安全性檢查表」評估你日常使用的 AI 工具（ChatGPT、Copilot 等），看看它們的 Harness 做得如何。哪些做得好？哪些有隱憂？
