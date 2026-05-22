@@ -108,7 +108,7 @@ API Key 是一串字元（例如 `AIzaSyB...` 或 `sk-or-...`），它的作用�
 Google AI Studio 是 Google 提供的免費 AI 開發平台，讓你透過 API 使用 Gemini 系列模型。它的特色是：
 
 - **有免費方案**，不需要綁定信用卡就能開始使用
-- 提供 Gemini 2.5 Flash、Gemini 2.5 Pro 等主力模型
+- 提供 Gemini 3.5 Flash、Gemini 2.5 Flash、Gemini 2.5 Pro 等主力模型（免費方案可用的模型會隨時間調整）
 - 免費方案的資料**會被用於改善 Google 產品**（付費方案則不會）
 
 ### 如何取得 API Key
@@ -129,15 +129,24 @@ Google AI Studio 是 Google 提供的免費 AI 開發平台，讓你透過 API �
 
 ### 免費方案的限制
 
-免費方案雖然不用花錢，但有用量限制：
+免費方案雖然不用花錢，但有用量限制。以下為截至 2026 年 5 月的資訊：
 
-| 模型 | 每分鐘請求數 | 每日請求數 | 說明 |
-|------|-------------|-----------|------|
-| Gemini 2.5 Flash | 約 10-15 次 | 約 1,500 次 | 適合日常使用，速度快 |
-| Gemini 2.5 Pro | 約 5 次 | 約 50 次 | 功能較強但限制嚴格 |
-| Gemini 2.0 Flash | 約 15 次 | 約 1,500 次 | 上一代模型，仍然好用 |
+| 模型 | 免費方案可用 | 每分鐘請求數 | 每日請求數 | 說明 |
+|------|------------|-------------|-----------|------|
+| Gemini 3.5 Flash | 是 | 約 10 次 | 約 5,000 次 | 最新旗艦模型，速度快、能力強 |
+| Gemini 3.1 Flash-Lite | 是 | 約 30 次 | 約 5,000 次 | 輕量高效率，適合大量簡單任務 |
+| Gemini 2.5 Flash | 是 | 約 10 次 | 約 1,500 次 | 穩定好用，日常使用首選 |
+| Gemini 2.5 Flash-Lite | 是 | 約 30 次 | 約 1,500 次 | 最經濟實惠，適合高頻率簡單操作 |
+| Gemini 2.5 Pro | 是（極度受限） | 約 5 次 | 約 50 次 | 最強推理能力，但免費額度很低 |
+| Gemini 2.0 Flash | 是 | 約 15 次 | 約 1,500 次 | 前一代模型，仍然可靠 |
+| Gemini 3.1 Pro Preview | 否 | — | — | 僅付費方案可用 |
 
-> 以上為近似值，實際限制可能隨時調整。請至 https://ai.google.dev/gemini-api/docs/rate-limits 查看最新資訊。
+**注意事項**：
+
+- Gemini 2.5 Flash 與 2.5 Flash-Lite 的每日請求數**共用額度**（合計約 1,500 次）
+- Gemini 2.5 Pro 免費方案可用但額度極低，建議優先使用 Flash 系列
+- Pro 系列模型（如 Gemini 3.1 Pro Preview）已不開放免費方案使用
+- 以上為近似值，實際限制可能隨時調整，請至 https://ai.google.dev/gemini-api/docs/rate-limits 查看最新資訊
 
 ### 如何使用 API Key 連接
 
@@ -166,6 +175,8 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:g
   -X POST \
   -d '{"contents":[{"parts":[{"text":"你好，請介紹自己"}]}]}'
 ```
+
+> 上例使用 `gemini-2.5-flash` 模型。你也可以替換為 `gemini-3.5-flash`（最新旗艦）、`gemini-2.5-pro`（最強推理）等其他模型名稱。完整模型列表請見 https://ai.google.dev/gemini-api/docs/models 。
 
 ### 連接原理圖解
 
@@ -248,7 +259,7 @@ OpenRouter 採用 **Credit 儲值制**（預付制）：
 - 支援信用卡、AliPay 或加密貨幣儲值
 - 儲值時收取 5.5% 手續費
 
-**但是**：OpenRouter 有約 28-30 個**完全免費的模型**，不需要儲值就能使用。適合課堂練習和測試。
+**但是**：OpenRouter 有約 30 個**完全免費的模型**，不需要儲值就能使用。適合課堂練習和測試。
 
 ### 免費模型列表（部分）
 
@@ -256,13 +267,13 @@ OpenRouter 採用 **Credit 儲值制**（預付制）：
 
 | 模型名稱 | 特色 | 適合場景 |
 |----------|------|---------|
-| Meta Llama 3.3 70B | 多語言對話能力強 | 一般文字處理、翻譯 |
-| Google Gemma 3 27B | 支援 140+ 語言 | 多語言場景 |
-| Qwen3 235B | 數學和科學推理 | 分析任務 |
-| StepFun Step 3.5 Flash | 高效率推理模型 | 快速回應 |
-| NVIDIA Nemotron Nano 12B | 視覺理解、文件分析 | 圖片分析 |
+| NVIDIA Nemotron 3 Super | 647B 參數超大模型 | 複雜推理、長文分析 |
+| OpenAI gpt-oss-120b | OpenAI 開源模型 | 一般對話、文字生成 |
+| Qwen3 235B | 數學和科學推理能力強 | 分析任務、程式輔助 |
+| DeepSeek R1 | 深度推理模型 | 邏輯推演、數學解題 |
+| Meta Llama 4 Scout | 多語言對話能力強 | 一般文字處理、翻譯 |
 
-> 完整免費模型列表：https://openrouter.ai/collections/free-models
+> 免費模型會不定期更換。完整列表請見：https://openrouter.ai/collections/free-models
 
 ### 免費方案的速率限制
 
@@ -297,7 +308,7 @@ client = OpenAI(
 
 # 只需要改 model 名稱就能切換不同模型
 response = client.chat.completions.create(
-    model="meta-llama/llama-3.3-70b-instruct:free",
+    model="nvidia/llama-3.3-nemotron-super-70b:free",
     messages=[{"role": "user", "content": "你好"}]
 )
 ```
@@ -337,9 +348,9 @@ response = client.chat.completions.create(
 | **取得門檻** | 低（只需 Google 帳號） | 低（只需 Email/GitHub） |
 | **是否需要付費** | 不需要，有完整免費方案 | 免費模型不用付費，付費模型需儲值 |
 | **API Key 格式** | `AIzaSy...` | `sk-or-v1-...` |
-| **模型選擇** | Google Gemini 系列 | 400+ 模型（各家廠商） |
+| **模型選擇** | Google Gemini 系列（含最新 3.5 Flash） | 400+ 模型（各家廠商） |
 | **API 格式** | Google 專屬格式 | OpenAI 相容格式（更通用） |
-| **免費額度** | 較寬鬆（1500 RPD for Flash） | 免費模型 50 RPD（未儲值） |
+| **免費額度** | Flash 系列約 1,500-5,000 RPD，Pro 極少 | 免費模型 50 RPD（未儲值） |
 | **資料隱私** | 免費方案資料用於改善產品 | 依背後服務商的隱私政策 |
 | **適合場景** | 穩定使用 Google 模型 | 需要比較或切換多家模型 |
 
@@ -404,6 +415,7 @@ response = client.chat.completions.create(
 |------|------|
 | Google AI Studio | https://aistudio.google.com |
 | Gemini API 文件 | https://ai.google.dev/gemini-api/docs |
+| Gemini 模型列表 | https://ai.google.dev/gemini-api/docs/models |
 | Gemini 定價 | https://ai.google.dev/gemini-api/docs/pricing |
 | Gemini 速率限制 | https://ai.google.dev/gemini-api/docs/rate-limits |
 | OpenRouter 首頁 | https://openrouter.ai |
