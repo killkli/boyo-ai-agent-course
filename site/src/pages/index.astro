@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Card from '../components/Card.astro';
-import SearchBar from '../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 
 const lessons = (await getCollection('lessons')).sort((a, b) => a.data.order - b.data.order);
@@ -27,9 +26,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <p class="mt-5 text-lg text-bark-700/70 leading-relaxed max-w-xl mx-auto">
           為博幼基金會課輔老師與社工設計的 AI Agent 實作課程。從認識 AI 到親手打造辦公室自動化助手，一步步掌握 AI 工具。
         </p>
-        <div class="mt-8">
-          <SearchBar />
-        </div>
       </div>
     </div>
   </div>
