@@ -58,4 +58,13 @@ const teachingNotes = defineCollection({
   }),
 });
 
-export const collections = { lessons, labs, handouts, resources, guides, 'teaching-notes': teachingNotes };
+const templates = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().default(''),
+    order: z.number(),
+  }),
+});
+
+export const collections = { lessons, labs, handouts, resources, guides, 'teaching-notes': teachingNotes, templates };

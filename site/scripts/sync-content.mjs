@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { resolve, dirname, basename } from 'path';
+import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -64,7 +64,7 @@ const MAPPING = [
       'workshop-scenarios': 5,
       'feedback-form': 6,
     },
-    getMeta: (match, title, filename) => {
+    getMeta: (_match, title, filename) => {
       const base = filename.replace('.md', '');
       const orderMap = {
         'student-schedule': 1,
@@ -87,7 +87,7 @@ const MAPPING = [
       'resources': 3,
       'self-study-roadmap': 4,
     },
-    getMeta: (match, title, filename) => {
+    getMeta: (_match, title, filename) => {
       const base = filename.replace('.md', '');
       const orderMap = {
         'cloud-ai-service-guide': 1,
@@ -102,7 +102,7 @@ const MAPPING = [
     collection: 'guides',
     src: 'workshop/guides',
     pattern: null,
-    getMeta: (match, title, filename) => {
+    getMeta: (_match, title, filename) => {
       const base = filename.replace('.md', '');
       const orderMap = { 'instructor-guide': 1, 'schedule': 2 };
       return { title, order: orderMap[base] || 99 };
@@ -112,9 +112,23 @@ const MAPPING = [
     collection: 'teaching-notes',
     src: 'teaching-notes',
     pattern: null,
-    getMeta: (match, title, filename) => {
+    getMeta: (_match, title, filename) => {
       const base = filename.replace('.md', '');
       const orderMap = { 'instructor-guide': 1, 'faq': 2 };
+      return { title, order: orderMap[base] || 99 };
+    },
+  },
+  {
+    collection: 'templates',
+    src: 'workshop/templates',
+    pattern: null,
+    getMeta: (_match, title, filename) => {
+      const base = filename.replace('.md', '');
+      const orderMap = {
+        'material-design-prompt-template': 1,
+        'teaching-support-rubric': 2,
+        'agent-workflow-sop-template': 3,
+      };
       return { title, order: orderMap[base] || 99 };
     },
   },

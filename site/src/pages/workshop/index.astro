@@ -5,6 +5,9 @@ import { getCollection } from 'astro:content';
 
 const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
 const handouts = (await getCollection('handouts')).sort((a, b) => a.data.order - b.data.order);
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const teachingNotes = (await getCollection('teaching-notes')).sort((a, b) => a.data.order - b.data.order);
+const templates = (await getCollection('templates')).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -16,10 +19,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           全天實作工作坊
         </div>
         <h1 class="font-serif font-bold text-3xl sm:text-4xl text-boyo-800">
-          AI Agent 辦公室場景工作坊
+          AI Agent 教學工作坊
         </h1>
         <p class="mt-4 text-bark-700/70 leading-relaxed">
-          6 小時的密集實作課程，從安裝 Hermes 開始，一步步打造四個博幼基金會辦公室場景的自動化 Agent。每個 Lab 約 50 分鐘，包含講解與動手操作時間。
+          6 小時的密集實作課程，從安裝 Hermes 開始，一步步把 Agent 放進博幼基金會的教材製作、教學輔導與幕僚協作工作流。這裡整理了 Lab、講義、教學指引與可直接帶回去套用的模板。
         </p>
       </div>
     </div>
@@ -41,7 +44,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
     <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">工作坊講義</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {handouts.map((h) => (
@@ -51,6 +54,51 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           description={h.data.description}
           tag="講義"
           tagColor="boyo"
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">工作坊指南</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {guides.map((guide) => (
+        <Card
+          href={`${base}/workshop/guides/${guide.slug}`}
+          title={guide.data.title}
+          description={guide.data.description}
+          tag="指南"
+          tagColor="accent"
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">講師教學指引</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {teachingNotes.map((note) => (
+        <Card
+          href={`${base}/workshop/teaching-notes/${note.slug}`}
+          title={note.data.title}
+          description={note.data.description}
+          tag="教學指引"
+          tagColor="boyo"
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <h2 class="font-serif font-bold text-2xl text-boyo-800 mb-6">工作流模板</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {templates.map((template) => (
+        <Card
+          href={`${base}/workshop/templates/${template.slug}`}
+          title={template.data.title}
+          description={template.data.description}
+          tag="模板"
+          tagColor="accent"
         />
       ))}
     </div>

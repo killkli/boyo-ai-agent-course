@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import LessonLayout from '../../../layouts/LessonLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await guide.render();
+const allGuides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const items = allGuides.map((g) => ({ slug: g.slug, title: g.data.title, order: g.data.order }));
+---
+
+<LessonLayout
+  title={guide.data.title}
+  collection="workshop/guides"
+  contentId={`guide-${guide.slug}`}
+  items={items}
+  currentSlug={guide.slug}
+>
+  <Content />
+</LessonLayout>
